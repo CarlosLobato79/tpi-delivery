@@ -4,6 +4,7 @@
  */
 package com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.resources;
 
+import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.boundary.RestResourcePattern;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.AbstractDataAccess;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.ComercioBean;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.Comercio;
@@ -37,8 +38,15 @@ public class ComercioResource extends AbstracRestResources<Comercio> {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response ingresar(Comercio entidad) {
+        
         Response.ResponseBuilder rb;
-
+        if(entidad == null){
+            rb = Response.status(Response.Status.BAD_GATEWAY);
+            rb.header("Content-Type", MediaType.APPLICATION_JSON);
+            rb.header("deny", MediaType.APPLICATION_JSON);
+            rb.entity(entidad);
+            return rb.build();   
+        }
         try {
             Comercio entidadCreada = this.getDataAccesBean().Ingresar(entidad);
             rb = Response.status(Response.Status.CREATED);
@@ -53,7 +61,6 @@ public class ComercioResource extends AbstracRestResources<Comercio> {
             rb.header("deny", MediaType.APPLICATION_JSON);
             rb.entity(entidad);
         } 
-
         return rb.build();
     }
     
@@ -64,13 +71,14 @@ public class ComercioResource extends AbstracRestResources<Comercio> {
         Response.ResponseBuilder rb;
         try{
             cEntity = cb.traerPorIdComercio(id);
-            rb = Response.accepted();
+            rb = Response.ok();
             rb.header("Content-Type", MediaType.APPLICATION_JSON);
             rb.entity(cEntity);
             return rb.build();
         }catch(Exception e){
             rb = Response.status(Response.Status.NOT_FOUND);
             rb.header("Content-Type", MediaType.APPLICATION_JSON);
+            rb.header(RestResourcePattern.ID_NOT_FOUND, id);
             return rb.build();
         }
     }

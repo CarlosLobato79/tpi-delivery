@@ -59,19 +59,26 @@ public abstract class AbstractDataAccess <T> implements Serializable{
         }
         return datosEntity;
     }
-    
-    
-    
+
+
+    /**
+     *
+     * @param entidad
+     * @return
+     * @throws Exception
+     */
     public T Ingresar(T entidad) throws Exception {
         EntityManager em = this.getEntityManager();
-       
             em.persist(entidad);
             em.flush();
-       
         return entidad;
-       
     }
     
+    /**
+     * 
+     * @param entidad
+     * @throws IllegalArgumentException 
+     */
     public void Actualiza(T entidad) throws IllegalArgumentException{
         if(entidad != null){
             this.getEntityManager().merge(entidad);

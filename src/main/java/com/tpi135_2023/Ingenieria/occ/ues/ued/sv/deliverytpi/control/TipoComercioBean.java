@@ -5,34 +5,31 @@
 package com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control;
 
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.Comercio;
+import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.TipoComercio;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author qwerty
  */
 @Stateless
-public class ComercioBean extends AbstractDataAccess<Comercio>  implements Serializable{
+public class TipoComercioBean extends AbstractDataAccess<TipoComercio>{
     
-    public ComercioBean() {
-        super(Comercio.class, "DeliveryTpiUnitPersistence");
+    public TipoComercioBean() {
+        super(TipoComercio.class, "DeliveryTpiUnitPersistence");
     }
     
-    public Comercio traerPorIdComercio(int id) throws Exception {
+    public TipoComercio traerPorIdComercio(int id) throws Exception {
         EntityManager em = this.getEntityManager();
-            TypedQuery<Comercio> query = em.createNamedQuery("Comercio.findByIdComercio", Comercio.class);
+            TypedQuery<TipoComercio> query = em.createNamedQuery("TipoComercio.findByIdTipoComercio", TipoComercio.class);
             query.setParameter("idComercio",id);
-            Comercio comercio = query.getSingleResult();
-            if(comercio.getIdComercio()  != id){
+            TipoComercio comercio = query.getSingleResult();
+            if(comercio.getIdTipoComercio()  != id){
                 throw new Exception("No se encontro");
             }
         return  query.getSingleResult();
     }
-
     
 }

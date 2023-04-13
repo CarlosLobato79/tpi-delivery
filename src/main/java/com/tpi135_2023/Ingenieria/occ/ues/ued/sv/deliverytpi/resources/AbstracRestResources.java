@@ -5,7 +5,10 @@
 package com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.resources;
 
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.AbstractDataAccess;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.Serializable;
@@ -39,10 +42,15 @@ public abstract class AbstracRestResources <T> implements Serializable{
             rb.header("Content-Length", "0");
             return rb.build();
         }
+        
         rb = Response.ok();
         rb.header("Content-Type", MediaType.APPLICATION_JSON);
         rb.header("Accept", MediaType.APPLICATION_JSON);
         rb.entity(clista);
         return rb.build();
     }
+    
+    
+
+
 }
