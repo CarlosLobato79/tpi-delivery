@@ -16,8 +16,17 @@ package com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
+import java.util.HashSet;
+import java.util.Set;
 
-@ApplicationPath("")
+
+@ApplicationPath("/")
 public class ApplicationConfig extends Application {
-    
+    @Override
+    public Set<Class<?>> getClasses() {
+          final Set<Class<?>> classes = new HashSet<>();
+          classes.add(CorsFiltro.class);
+          
+        return super.getClasses(); 
+    }
 }
