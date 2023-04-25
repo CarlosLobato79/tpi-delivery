@@ -8,5 +8,4 @@ public class RestResourcePattern implements Serializable {
     public final static String ID_NOT_FOUND = "id-not-found";
     public final static String NULL_PARAMETER = "null-parameter";
     public final static String WRONG_PARAMETER = "wrong-parameter";
-
 }
