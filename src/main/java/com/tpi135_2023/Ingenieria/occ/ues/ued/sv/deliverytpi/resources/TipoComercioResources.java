@@ -1,6 +1,6 @@
 package com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.resources;
 
-import java.io.Serializable;
+
 
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.boundary.RestResourcePattern;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.AbstractDataAccess;

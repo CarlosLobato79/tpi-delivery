@@ -26,10 +26,7 @@ import java.util.List;
 public class ProductoResource extends AbstracRestResources<Producto>{
 
     @Inject ProductoBean pb;
-    
- 
 
-    
     @Override
     protected AbstractDataAccess<Producto> getDataAccesBean() {
         return this.pb;

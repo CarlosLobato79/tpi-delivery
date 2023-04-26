@@ -9,11 +9,8 @@ import java.util.List;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.boundary.RestResourcePattern;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.AbstractDataAccess;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.ComercioBean;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.ComercioTipoComercioBean;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.TipoComercioBean;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.Comercio;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.ComercioTipoComercio;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.TipoComercio;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -24,7 +21,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.Status;
 
 /**
  *
