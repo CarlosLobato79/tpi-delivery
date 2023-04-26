@@ -104,66 +104,66 @@ public class ComercioIT extends Contenedores {
                 Assertions.assertTrue(respuesta.getHeaders().containsKey(RestResourcePattern.ID_NOT_FOUND));
         }
 
-        // /**
-        // * Crea un tipo de comercio
-        // *
-        // * @see TipoComercio
-        // */
-        // @Order(3)
-        // @Test
-        // public void crearTipoComercioTest() {
-        // System.out.println("Comercio - crearTipoComercio");
-        // Assertions.assertTrue(payara.isRunning());
-        // int esperado = Response.Status.CREATED.getStatusCode();
-        // TipoComercio creado = new TipoComercio();
-        // creado.setActivo(Boolean.TRUE);
-        // creado.setNombre("Farmacia");
-        // Response respuesta =
-        // target.path("tipocomercio").request(MediaType.APPLICATION_JSON)
-        // .post(Entity.entity(creado, MediaType.APPLICATION_JSON));
-        // Assertions.assertEquals(esperado, respuesta.getStatus());
-        // Assertions.assertTrue(respuesta.getHeaders().containsKey("location"));
-        // idTipoCreado =
-        // Integer.valueOf(respuesta.getHeaderString("location").split("tipocomercio/")[1]);
-        // Assertions.assertNotNull(idTipoCreado);
-        // respuesta = target.path("tipocomercio").request(MediaType.APPLICATION_JSON)
-        // .post(Entity.json(null));
-        // Assertions.assertEquals(400, respuesta.getStatus());
-        // }
-        //
-        // /**
-        // * Valida que un comercio creado previamente no posea un Tipo asociado
-        // *
-        // * @see ComercioTipoComercio
-        // */
-        // @Order(4)
-        // @Test
-        // public void validarTipoVacioTest() {
-        // System.out.println("Comercio - validarTipoVacio");
-        // Assertions.assertTrue(payara.isRunning());
-        // int esperado = 200;
-        // Response respuesta =
-        // target.path("/comercio/{id}/tipocomercio").resolveTemplate("id",
-        // idComercioCreado)
-        // .request(MediaType.APPLICATION_JSON).get();
-        // Assertions.assertEquals(esperado, respuesta.getStatus());
-        // Assertions.assertTrue(respuesta.getHeaders().containsKey(RestResourcePattern.CONTAR_REGISTROS));
-        // Assertions.assertEquals(0,
-        // Integer.valueOf(respuesta.getHeaderString(RestResourcePattern.CONTAR_REGISTROS)));
-        // //excepciones
-        // respuesta = target.path("/comercio/{id}/tipocomercio").resolveTemplate("id",
-        // 999)
-        // .request(MediaType.APPLICATION_JSON).get();
-        // Assertions.assertEquals(404, respuesta.getStatus());
-        // Assertions.assertTrue(respuesta.getHeaders().containsKey(RestResourcePattern.ID_NOT_FOUND));
-        // }
-        //
-        // /**
-        // * Responsable de asociar un Tipo con un Comercio que han sido creados
-        // * previamente
-        // *
-        // * @see ComercioTipoComercio
-        // */
+        /**
+        * Crea un tipo de comercio
+        *
+        * @see TipoComercio
+        */
+        @Order(3)
+        @Test
+        public void crearTipoComercioTest() {
+        System.out.println("Comercio - crearTipoComercio");
+        Assertions.assertTrue(payara.isRunning());
+        int esperado = Response.Status.CREATED.getStatusCode();
+        TipoComercio creado = new TipoComercio();
+        creado.setActivo(Boolean.TRUE);
+        creado.setNombre("Farmacia");
+        Response respuesta =
+        target.path("tipocomercio").request(MediaType.APPLICATION_JSON)
+        .post(Entity.entity(creado, MediaType.APPLICATION_JSON));
+        Assertions.assertEquals(esperado, respuesta.getStatus());
+        Assertions.assertTrue(respuesta.getHeaders().containsKey("location"));
+        idTipoCreado =
+        Integer.valueOf(respuesta.getHeaderString("location").split("tipocomercio/")[1]);
+        Assertions.assertNotNull(idTipoCreado);
+        respuesta = target.path("tipocomercio").request(MediaType.APPLICATION_JSON)
+        .post(Entity.json(null));
+        Assertions.assertEquals(400, respuesta.getStatus());
+        }
+        
+        /**
+        * Valida que un comercio creado previamente no posea un Tipo asociado
+        *
+        * @see ComercioTipoComercio
+        */
+        @Order(4)
+        @Test
+        public void validarTipoVacioTest() {
+        System.out.println("Comercio - validarTipoVacio");
+        Assertions.assertTrue(payara.isRunning());
+        int esperado = 200;
+        Response respuesta =
+        target.path("/comercio/{id}/tipocomercio").resolveTemplate("id",
+        idComercioCreado)
+        .request(MediaType.APPLICATION_JSON).get();
+        Assertions.assertEquals(esperado, respuesta.getStatus());
+        Assertions.assertTrue(respuesta.getHeaders().containsKey(RestResourcePattern.CONTAR_REGISTROS));
+        Assertions.assertEquals(0,
+        Integer.valueOf(respuesta.getHeaderString(RestResourcePattern.CONTAR_REGISTROS)));
+        //excepciones
+        respuesta = target.path("/comercio/{id}/tipocomercio").resolveTemplate("id",
+        999)
+        .request(MediaType.APPLICATION_JSON).get();
+        Assertions.assertEquals(404, respuesta.getStatus());
+        Assertions.assertTrue(respuesta.getHeaders().containsKey(RestResourcePattern.ID_NOT_FOUND));
+        }
+        
+        /**
+        * Responsable de asociar un Tipo con un Comercio que han sido creados
+        * previamente
+        *
+        * @see ComercioTipoComercio
+        */
         // @Order(5)
         // @Test
         // public void agregarTipoAComercio() {
