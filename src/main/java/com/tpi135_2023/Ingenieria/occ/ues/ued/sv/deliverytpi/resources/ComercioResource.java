@@ -9,8 +9,10 @@ import java.util.List;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.boundary.RestResourcePattern;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.AbstractDataAccess;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.ComercioBean;
+import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.TipoComercioBean;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.Comercio;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.ComercioTipoComercio;
+import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.TipoComercio;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -21,6 +23,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 /**
  *
@@ -67,36 +70,38 @@ public class ComercioResource extends AbstracRestResources<Comercio> {
         return rb.build();
     }
 
-    // @POST
-    // @Path("/{idC}/tipocomercio/{idT}")
-    // @Consumes({ MediaType.APPLICATION_JSON })
-    // @Produces({ MediaType.APPLICATION_JSON })
-    // public Response asociarTipoComercio(String json, @PathParam("idC") long idComercio,
-    //         @PathParam("idT") int idTipoComercio) {
-    //     ComercioTipoComercio entidadCreacion = new ComercioTipoComercio();
-    //     Comercio comercioEntidad = new Comercio(idComercio);
-    //     TipoComercio tipoComercioEntidad  = new TipoComercio(idTipoComercio);
-    //     Response.ResponseBuilder rb;
-        
-    //     try {
+    @POST
+    @Path("/{idC}/tipocomercio/{idT}")
+    @Consumes({ MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response asociarTipoComercio(String json, @PathParam("idC") int idComercio,
+            @PathParam("idT") int idTipoComercio) {
+     
+     
+        Comercio comercio;
+        TipoComercio tipoComercio;
+        Response.ResponseBuilder rb;
+        TipoComercioBean tcb = new TipoComercioBean();
+        try {
 
-    //         entidadCreacion.setComercio(comercioEntidad);
-    //         entidadCreacion.setTipoComercio(tipoComercioEntidad);
-    //         tcb.Ingresar(entidadCreacion);
+            comercio = cb.traerPorIdComercio(idComercio);
+            tipoComercio = tcb.traerPorIdTipoComercio(idTipoComercio);
+
+            comercio.getComercioTipoComercioList().add(new ComercioTipoComercio(idComercio, idTipoComercio));
             
-    //         rb = Response.status(Response.Status.CREATED);
-    //         rb.header("Content-Type", MediaType.APPLICATION_JSON);
+            cb.getEntityManager().merge(comercio);
+            rb = Response.status(Response.Status.CREATED);
+            rb.header("Content-Type", MediaType.APPLICATION_JSON);
 
-    //         return rb.build();
+            return rb.build();
 
-    //     } catch (Exception e) {
-    //         rb = Response.status(Status.BAD_REQUEST);
-    //         rb.header("Content-Type", MediaType.APPLICATION_JSON);
-    //         // rb.header("deny", MediaType.APPLICATION_JSON);
-    //         rb.entity(e);
-    //     }
-    //     return rb.build();
-    // }
+        } catch (Exception e) {
+            rb = Response.status(Status.BAD_REQUEST);
+            rb.header("Content-Type", MediaType.APPLICATION_JSON);
+            // rb.header("deny", MediaType.APPLICATION_JSON);
+        }
+        return rb.build();
+    }
 
     @GET
     @Path("/{id}")

@@ -164,31 +164,31 @@ public class ComercioIT extends Contenedores {
         *
         * @see ComercioTipoComercio
         */
-        // @Order(5)
-        // @Test
-        // public void agregarTipoAComercio() {
-        // System.out.println("Comercio - agregarTipoAComercio");
-        // Assertions.assertTrue(payara.isRunning());
-        // int esperado = Response.Status.CREATED.getStatusCode();
-        // Response respuesta =
-        // target.path("comercio/{idComercio}/tipocomercio/{idTipoComercio}")
-        // .resolveTemplate("idComercio", idComercioCreado)
-        // .resolveTemplate("idTipoComercio", idTipoCreado)
-        // .request(MediaType.APPLICATION_JSON)
-        // .post(Entity.entity("", MediaType.APPLICATION_JSON));
-        // if (respuesta.getStatus() == 400) {
-        // System.out.println(respuesta.getHeaderString(RestResourcePattern.WRONG_PARAMETER));
-        // }
-        // Assertions.assertEquals(esperado, respuesta.getStatus());
-        // //excepciones
-        // respuesta =
-        // target.path("comercio/{idComercio}/tipocomercio/{idTipoComercio}")
-        // .resolveTemplate("idComercio", 9999)
-        // .resolveTemplate("idTipoComercio", 9999)
-        // .request(MediaType.APPLICATION_JSON)
-        // .post(Entity.entity("", MediaType.APPLICATION_JSON));
-        // Assertions.assertEquals(400, respuesta.getStatus());
-        // }
+        @Order(5)
+        @Test
+        public void agregarTipoAComercio() {
+        System.out.println("Comercio - agregarTipoAComercio");
+        Assertions.assertTrue(payara.isRunning());
+        int esperado = Response.Status.CREATED.getStatusCode();
+        Response respuesta =
+        target.path("comercio/{idComercio}/tipocomercio/{idTipoComercio}")
+        .resolveTemplate("idComercio", idComercioCreado)
+        .resolveTemplate("idTipoComercio", idTipoCreado)
+        .request(MediaType.APPLICATION_JSON)
+        .post(Entity.entity("", MediaType.APPLICATION_JSON));
+        if (respuesta.getStatus() == 400) {
+        System.out.println(respuesta.getHeaderString(RestResourcePattern.WRONG_PARAMETER));
+        }
+        Assertions.assertEquals(esperado, respuesta.getStatus());
+        //excepciones
+        respuesta =
+        target.path("comercio/{idComercio}/tipocomercio/{idTipoComercio}")
+        .resolveTemplate("idComercio", 9999)
+        .resolveTemplate("idTipoComercio", 9999)
+        .request(MediaType.APPLICATION_JSON)
+        .post(Entity.entity("", MediaType.APPLICATION_JSON));
+        Assertions.assertEquals(400, respuesta.getStatus());
+        }
         //
         // /**
         // * Valida que un Comercio posea tipos asociados
