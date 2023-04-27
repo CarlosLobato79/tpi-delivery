@@ -13,6 +13,7 @@ import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.ComercioBea
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.TipoComercioBean;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.Comercio;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.ComercioTipoComercio;
+import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.Sucursal;
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.TipoComercio;
 
 import jakarta.inject.Inject;
@@ -103,6 +104,35 @@ public class ComercioResource extends AbstracRestResources<Comercio>  {
         return rb.build();
     }
 
+    @POST
+    @Path("/{idC}/sucursal/")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response asociaraSucursal(Sucursal sucursal, @PathParam("idC") int idComercio) {
+
+
+        Comercio comercio;
+        Response.ResponseBuilder rb;
+
+        try {
+
+            comercio = cb.traerPorIdComercio(idComercio);
+            comercio.getSucursalList().add(sucursal);
+            cb.Actualizar(comercio);
+
+            rb = Response.status(Response.Status.CREATED);
+            rb.header("location", "sucursal/"+comercio.getIdComercio());
+            rb.header("Content-Type", MediaType.APPLICATION_JSON);
+
+            return rb.build();
+
+        } catch (Exception e) {
+            rb = Response.status(Status.BAD_REQUEST);
+            rb.header("Content-Type", MediaType.APPLICATION_JSON);
+            // rb.header("deny", MediaType.APPLICATION_JSON);
+        }
+        return rb.build();
+    }
+
     @GET
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
@@ -145,6 +175,8 @@ public class ComercioResource extends AbstracRestResources<Comercio>  {
             return rb.build();
         }
     }
+
+
 
     
 }

@@ -21,6 +21,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  * 
  * @author qwerty
@@ -210,89 +213,89 @@ public class ComercioIT extends Contenedores {
          Assertions.assertEquals(1,
          Integer.valueOf(respuesta.getHeaderString(RestResourcePattern.CONTAR_REGISTROS)));
          }
-        //
-        // /**
-        // * Crea Tereritorios, Direccion y Sucursal, para luego asociarlos a un
-        // * Comercio creado previamente
-        // *
-        // * @see Territorio
-        // * @see Direccion
-        // * @see Sucursal
-        // */
-        // @Order(7)
-        // @Test
-        // public void crearSucursalTest() {
-        // System.out.println("Comercio - crearSucursal");
-        // Assertions.assertTrue(payara.isRunning());
-        // int esperado = 200;
-        // //crear territorios
-        // Territorio sv = new Territorio();
-        // sv.setHijosObligatorios(14);
-        // sv.setIdTerritorioPadre(null);
-        // sv.setNombre("El Salvador");
-        // sv.setTextoVisible("pais");
-        // Response respuestaSv =
-        // target.path("territorio").request(MediaType.APPLICATION_JSON)
-        // .post(Entity.entity(sv, MediaType.APPLICATION_JSON));
-        // Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),
-        // respuestaSv.getStatus());
-        // Assertions.assertTrue(respuestaSv.getHeaders().containsKey("location"));
-        // sv.setIdTerritorio(Integer.valueOf(respuestaSv.getHeaderString("location").split("territorio/")[1]));
-        // Assertions.assertNotNull(sv.getIdTerritorio());
-        // Territorio santaAna = new Territorio();
-        // santaAna.setIdTerritorioPadre(sv);
-        // santaAna.setNombre("Santa Ana");
-        // santaAna.setTextoVisible("departamento");
-        // santaAna.setHijosObligatorios(13);
-        // Response respuestaSantaAna =
-        // target.path("territorio").request(MediaType.APPLICATION_JSON)
-        // .post(Entity.entity(santaAna, MediaType.APPLICATION_JSON));
-        // Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),
-        // respuestaSantaAna.getStatus());
-        // Assertions.assertTrue(respuestaSantaAna.getHeaders().containsKey("location"));
-        // santaAna.setIdTerritorio(Integer.valueOf(respuestaSantaAna.getHeaderString("location").split("territorio/")[1]));
-        // //excepciones territorio
-        // respuestaSv = target.path("territorio").request(MediaType.APPLICATION_JSON)
-        // .post(Entity.json(null));
-        // Assertions.assertEquals(400, respuestaSv.getStatus());
-        // //crear direccion
-        // Direccion direccion = new Direccion();
-        // direccion.setIdTerritorio(santaAna);
-        // direccion.setDireccion("Final 1a Av Nte y 1a C pte. No 32");
-        // direccion.setLatitud(BigDecimal.TEN);
-        // direccion.setLongitud(BigDecimal.ONE);
-        // direccion.setReferencias("50 mts. al sur del palo de mango");
-        // Response respuestaDireccion =
-        // target.path("direccion").request(MediaType.APPLICATION_JSON)
-        // .post(Entity.entity(direccion, MediaType.APPLICATION_JSON));
-        // Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),
-        // respuestaDireccion.getStatus());
-        // Assertions.assertTrue(respuestaDireccion.getHeaders().containsKey("location"));
-        // direccion.setIdDireccion(Long.valueOf(respuestaDireccion.getHeaderString("location").split("direccion/")[1]));
-        // // excepciones direccion
-        // respuestaDireccion =
-        // target.path("direccion").request(MediaType.APPLICATION_JSON)
-        // .post(Entity.json(null));
-        // Assertions.assertEquals(400, respuestaDireccion.getStatus());
-        //
-        // //asociar direccion a sucursal
-        // Sucursal s = new Sucursal();
-        // s.setIdComercio(new Comercio(idComercioCreado));
-        // s.setIdDireccion(BigInteger.valueOf(direccion.getIdDireccion()));
-        // s.setNombre("La Rotonda");
-        // Response respuestaSucursal = target.path("comercio/{idComercio}/sucursal")
-        // .resolveTemplate("idComercio", idComercioCreado)
-        // .request(MediaType.APPLICATION_JSON)
-        // .post(Entity.entity(s, MediaType.APPLICATION_JSON));
-        // Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),
-        // respuestaSucursal.getStatus());
-        // Assertions.assertTrue(respuestaSucursal.getHeaders().containsKey("location"));
-        // direccion.setIdDireccion(Long.valueOf(respuestaSucursal.getHeaderString("location").split("sucursal/")[1]));
-        // //excepciones
-        // respuestaSucursal = target.path("comercio/{idComercio}/sucursal")
-        // .resolveTemplate("idComercio", 9999)
-        // .request(MediaType.APPLICATION_JSON)
-        // .post(Entity.entity(s, MediaType.APPLICATION_JSON));
-        // Assertions.assertEquals(400, respuestaSucursal.getStatus());
-        // }
+
+         /**
+         * Crea Tereritorios, Direccion y Sucursal, para luego asociarlos a un
+         * Comercio creado previamente
+         *
+         * @see Territorio
+         * @see Direccion
+         * @see Sucursal
+         */
+         @Order(7)
+         @Test
+         public void crearSucursalTest() {
+         System.out.println("Comercio - crearSucursal");
+         Assertions.assertTrue(payara.isRunning());
+         int esperado = 200;
+         //crear territorios
+         Territorio sv = new Territorio();
+         sv.setHijosObligatorios(14);
+         sv.setIdTerritorioPadre(null);
+         sv.setNombre("El Salvador");
+         sv.setTextoVisible("pais");
+         Response respuestaSv =
+         target.path("territorio").request(MediaType.APPLICATION_JSON)
+         .post(Entity.entity(sv, MediaType.APPLICATION_JSON));
+         Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),
+         respuestaSv.getStatus());
+         Assertions.assertTrue(respuestaSv.getHeaders().containsKey("location"));
+         sv.setIdTerritorio(Integer.valueOf(respuestaSv.getHeaderString("location").split("territorio/")[1]));
+         Assertions.assertNotNull(sv.getIdTerritorio());
+         Territorio santaAna = new Territorio();
+         santaAna.setIdTerritorioPadre(sv);
+         santaAna.setNombre("Santa Ana");
+         santaAna.setTextoVisible("departamento");
+         santaAna.setHijosObligatorios(13);
+         Response respuestaSantaAna =
+         target.path("territorio").request(MediaType.APPLICATION_JSON)
+         .post(Entity.entity(santaAna, MediaType.APPLICATION_JSON));
+         Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),
+         respuestaSantaAna.getStatus());
+         Assertions.assertTrue(respuestaSantaAna.getHeaders().containsKey("location"));
+         santaAna.setIdTerritorio(Integer.valueOf(respuestaSantaAna.getHeaderString("location").split("territorio/")[1]));
+         //excepciones territorio
+         respuestaSv = target.path("territorio").request(MediaType.APPLICATION_JSON)
+         .post(Entity.json(null));
+         Assertions.assertEquals(400, respuestaSv.getStatus());
+         //crear direccion
+         Direccion direccion = new Direccion();
+         direccion.setIdTerritorio(santaAna);
+         direccion.setDireccion("Final 1a Av Nte y 1a C pte. No 32");
+         direccion.setLatitud(BigDecimal.TEN);
+         direccion.setLongitud(BigDecimal.ONE);
+         direccion.setReferencias("50 mts. al sur del palo de mango");
+         Response respuestaDireccion =
+         target.path("direccion").request(MediaType.APPLICATION_JSON)
+         .post(Entity.entity(direccion, MediaType.APPLICATION_JSON));
+         Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),
+         respuestaDireccion.getStatus());
+         Assertions.assertTrue(respuestaDireccion.getHeaders().containsKey("location"));
+         direccion.setIdDireccion(Long.valueOf(respuestaDireccion.getHeaderString("location").split("direccion/")[1]));
+         // excepciones direccion
+         respuestaDireccion =
+         target.path("direccion").request(MediaType.APPLICATION_JSON)
+         .post(Entity.json(null));
+         Assertions.assertEquals(400, respuestaDireccion.getStatus());
+
+//         asociar direccion a sucursal
+         Sucursal s = new Sucursal();
+         s.setIdComercio(new Comercio(idComercioCreado));
+         s.setIdDireccion(BigInteger.valueOf(direccion.getIdDireccion()));
+         s.setNombre("La Rotonda");
+         Response respuestaSucursal = target.path("comercio/{idComercio}/sucursal")
+         .resolveTemplate("idComercio", idComercioCreado)
+         .request(MediaType.APPLICATION_JSON)
+         .post(Entity.entity(s, MediaType.APPLICATION_JSON));
+         Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),
+         respuestaSucursal.getStatus());
+         Assertions.assertTrue(respuestaSucursal.getHeaders().containsKey("location"));
+         direccion.setIdDireccion(Long.valueOf(respuestaSucursal.getHeaderString("location").split("sucursal/")[1]));
+         //excepciones
+         respuestaSucursal = target.path("comercio/{idComercio}/sucursal")
+         .resolveTemplate("idComercio", 9999)
+         .request(MediaType.APPLICATION_JSON)
+         .post(Entity.entity(s, MediaType.APPLICATION_JSON));
+         Assertions.assertEquals(400, respuestaSucursal.getStatus());
+         }
 }
