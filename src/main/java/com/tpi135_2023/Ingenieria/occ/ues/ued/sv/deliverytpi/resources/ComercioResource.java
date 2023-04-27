@@ -4,6 +4,7 @@
  */
 package com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.resources;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.boundary.RestResourcePattern;
@@ -30,7 +31,7 @@ import jakarta.ws.rs.core.Response.Status;
  * @author qwerty
  */
 @Path("/comercio")
-public class ComercioResource extends AbstracRestResources<Comercio> {
+public class ComercioResource extends AbstracRestResources<Comercio>  {
     @Inject
     ComercioBean cb;
     
@@ -72,7 +73,6 @@ public class ComercioResource extends AbstracRestResources<Comercio> {
 
     @POST
     @Path("/{idC}/tipocomercio/{idT}")
-    @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
     public Response asociarTipoComercio(String json, @PathParam("idC") int idComercio,
             @PathParam("idT") int idTipoComercio) {
@@ -89,7 +89,7 @@ public class ComercioResource extends AbstracRestResources<Comercio> {
 
             comercio.getComercioTipoComercioList().add(new ComercioTipoComercio(idComercio, idTipoComercio));
             
-            cb.getEntityManager().merge(comercio);
+            cb.Actualizar(comercio);
             rb = Response.status(Response.Status.CREATED);
             rb.header("Content-Type", MediaType.APPLICATION_JSON);
 
@@ -105,6 +105,7 @@ public class ComercioResource extends AbstracRestResources<Comercio> {
 
     @GET
     @Path("/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
     public Response buscarPorId(@PathParam("id") int id) {
         Comercio cEntity = null;
         Response.ResponseBuilder rb;
@@ -124,18 +125,18 @@ public class ComercioResource extends AbstracRestResources<Comercio> {
 
     @GET
     @Path("/{id}/tipocomercio")
+    @Produces({ MediaType.APPLICATION_JSON })
     public Response traerIdTipoComercio(@PathParam("id") int id) {
-        Comercio cEntity = null;
-        List<ComercioTipoComercio> tipoComercioList = null;
+        TipoComercioBean tcb = new TipoComercioBean();
+        List<ComercioTipoComercio> tipoComercioList;
+        Comercio cm;
         Response.ResponseBuilder rb;
         try {
-            cEntity = cb.traerPorIdComercio(id);
-            tipoComercioList = cEntity.getComercioTipoComercioList();
+            cm= cb.traerPorIdComercio(id);
             rb = Response.ok();
-
             rb.header("Content-Type", MediaType.APPLICATION_JSON);
-            rb.header(RestResourcePattern.CONTAR_REGISTROS, tipoComercioList.size());
-            rb.entity(tipoComercioList);
+            rb.header(RestResourcePattern.CONTAR_REGISTROS,cm.getComercioTipoComercioList().size());
+
             return rb.build();
         } catch (Exception e) {
             rb = Response.status(Response.Status.NOT_FOUND);

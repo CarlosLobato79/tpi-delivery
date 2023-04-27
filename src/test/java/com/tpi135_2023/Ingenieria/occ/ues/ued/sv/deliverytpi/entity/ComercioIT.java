@@ -189,27 +189,27 @@ public class ComercioIT extends Contenedores {
         .post(Entity.entity("", MediaType.APPLICATION_JSON));
         Assertions.assertEquals(400, respuesta.getStatus());
         }
-        //
-        // /**
-        // * Valida que un Comercio posea tipos asociados
-        // *
-        // * @see ComercioTipoComercio
-        // */
-        // @Order(6)
-        // @Test
-        // public void validarTipoLlenoTest() {
-        // System.out.println("Comercio - validarTipoLleno");
-        // Assertions.assertTrue(payara.isRunning());
-        // int esperado = 200;
-        // Response respuesta =
-        // target.path("/comercio/{id}/tipocomercio").resolveTemplate("id",
-        // idComercioCreado)
-        // .request(MediaType.APPLICATION_JSON).get();
-        // Assertions.assertEquals(esperado, respuesta.getStatus());
-        // Assertions.assertTrue(respuesta.getHeaders().containsKey(RestResourcePattern.CONTAR_REGISTROS));
-        // Assertions.assertEquals(1,
-        // Integer.valueOf(respuesta.getHeaderString(RestResourcePattern.CONTAR_REGISTROS)));
-        // }
+
+         /**
+         * Valida que un Comercio posea tipos asociados
+         *
+         * @see ComercioTipoComercio
+         */
+         @Order(6)
+         @Test
+         public void validarTipoLlenoTest() {
+         System.out.println("Comercio - validarTipoLleno");
+         Assertions.assertTrue(payara.isRunning());
+         int esperado = 200;
+         Response respuesta =
+         target.path("/comercio/{id}/tipocomercio").resolveTemplate("id",
+         idComercioCreado)
+         .request(MediaType.APPLICATION_JSON).get();
+         Assertions.assertEquals(esperado, respuesta.getStatus());
+         Assertions.assertTrue(respuesta.getHeaders().containsKey(RestResourcePattern.CONTAR_REGISTROS));
+         Assertions.assertEquals(1,
+         Integer.valueOf(respuesta.getHeaderString(RestResourcePattern.CONTAR_REGISTROS)));
+         }
         //
         // /**
         // * Crea Tereritorios, Direccion y Sucursal, para luego asociarlos a un

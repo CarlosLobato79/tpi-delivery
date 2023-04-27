@@ -79,7 +79,7 @@ public abstract class AbstractDataAccess <T> implements Serializable{
      * @param entidad
      * @throws IllegalArgumentException 
      */
-    public void Actualiza(T entidad) throws IllegalArgumentException{
+    public void Actualizar(T entidad) throws Exception{
         if(entidad != null){
             this.getEntityManager().merge(entidad);
         }
