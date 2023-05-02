@@ -46,9 +46,6 @@ public class ComercioIT extends Contenedores {
                 postgreSql.start();
 
                 System.out.println("Comercio - lanzarPayara");
-                // ARCHIVO PARA EJECUTAR que crea el pool de conexiones pasandole como parametro
-                // el puerto de la bd
-                payara.withCommand("/bin/bash /opt/payara/appserver/bin/commands-server.sh");
                 payara.start();
 
                 // Inicializando las entradas

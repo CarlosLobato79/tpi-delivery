@@ -21,11 +21,9 @@ public class Contenedores {
                .forHostPath(Paths.get("target/deliverytpi.war").toAbsolutePath(), 0777);
      static final String JDBC_CONECTOR_DRIVER = Paths.get("postgresql-42.5.4.jar").toAbsolutePath().toString();
      static final MountableFile JDNI_RESOURCE = MountableFile
-               .forHostPath(Paths.get("src/main/resources/META-INF/glassfish-resources.xml").toAbsolutePath(), 0777);
+               .forHostPath(Paths.get("post-boot-commands-final.asadmin").toAbsolutePath(), 0777);
 
-     static final MountableFile INIT_COMMANDS = MountableFile
-               .forHostPath(Paths.get("commands-server.sh").toAbsolutePath(), 0777);
-     static final String SQL_INIT_FILE = Paths.get("DeliveryDDL.sql").toAbsolutePath().toString();
+
      // Para capturar la salida
      static final Logger LOGGER = (Logger) LoggerFactory.getLogger(Contenedores.class);
 
@@ -47,7 +45,7 @@ public class Contenedores {
                .withInitScript("DeliveryDDL.sql")
                .withExposedPorts(5432)
                .withNetwork(network)
-               .withNetworkAliases("mired")
+               .withNetworkAliases("db")
                .withStartupTimeout(Duration.ofSeconds(60));
 
      @ClassRule
@@ -58,13 +56,11 @@ public class Contenedores {
                // Pasando el proyecto
                .withCopyFileToContainer(WAR_FILE, "/opt/payara/deployments/deliverytpi.war")
                // JDNI RECURSO
-               .withCopyFileToContainer(JDNI_RESOURCE, "/opt/payara/appserver/bin/glassfish-resources.xml")
+               .withCopyFileToContainer(JDNI_RESOURCE, "/opt/payara/config/post-boot-commands-final.asadmin")
                // JDBC DRIVER
                .withFileSystemBind(JDBC_CONECTOR_DRIVER,
                          "/opt/payara/appserver/glassfish/domains/domain1/lib/postgresql-42.5.4.jar",
                          BindMode.READ_ONLY)
-               // ARCHIVO DE EJECUCION DE COMANDO
-               .withCopyFileToContainer(INIT_COMMANDS, "/opt/payara/appserver/bin/commands-server.sh")
 
                // EXPONGO PUERTOS
                .withExposedPorts(8080, 4848)
