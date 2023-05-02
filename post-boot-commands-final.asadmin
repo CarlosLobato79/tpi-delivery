@@ -1,0 +1,28 @@
+create-jdbc-connection-pool --restype=javax.sql.DataSource --datasourceclassname=org.postgresql.ds.PGSimpleDataSource --property=user=postgres:password=1234:URL="jdbc:postgresql://db:5432/postgres" tpi-pool
+create-jdbc-resource --connectionpoolid=tpi-pool app/delivery
+list-jdbc-connection-pools
+deploy /opt/payara/deployments/deliverytpi.war
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
