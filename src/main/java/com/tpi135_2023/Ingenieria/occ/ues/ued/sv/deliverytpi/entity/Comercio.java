@@ -15,7 +15,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "comercio")
 @NamedQueries({
-    @NamedQuery(name = "Comercio.findAll", query = "SELECT c FROM Comercio c"),
+    @NamedQuery(name = "Comercio.findAll", query = "SELECT c FROM Comercio c ORDER BY LOWER(c.nombre) ASC"),
+    @NamedQuery(name = "Comercio.findByNombreAlfa", query = "SELECT c FROM Comercio c WHERE LOWER(c.nombre) = LOWER(:nombre) ORDER BY LOWER(c.nombre) ASC"),
     @NamedQuery(name = "Comercio.findByIdComercio", query = "SELECT c FROM Comercio c WHERE c.idComercio = :idComercio"),
     @NamedQuery(name = "Comercio.findByNombre", query = "SELECT c FROM Comercio c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Comercio.findByActivo", query = "SELECT c FROM Comercio c WHERE c.activo = :activo"),

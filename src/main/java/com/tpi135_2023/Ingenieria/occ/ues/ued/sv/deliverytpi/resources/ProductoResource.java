@@ -101,7 +101,7 @@ public class ProductoResource extends AbstracRestResources<Producto>{
     
     @GET
     @Path("activo/{estado}")
-    public Response buscarPorEstado(@PathParam("nombre") boolean estado){
+    public Response buscarPorEstado(@PathParam("estado") boolean estado){
         List<Producto> lp = null;
         Response.ResponseBuilder rb;
         try{

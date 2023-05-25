@@ -8,13 +8,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.boundary.RestResourcePattern;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.AbstractDataAccess;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.ComercioBean;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.TipoComercioBean;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.Comercio;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.ComercioTipoComercio;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.Sucursal;
-import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.TipoComercio;
+import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.control.*;
+import com.tpi135_2023.Ingenieria.occ.ues.ued.sv.deliverytpi.entity.*;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -72,6 +67,25 @@ public class ComercioResource extends AbstracRestResources<Comercio>  {
         return rb.build();
     }
 
+    @GET
+    @Path("nombre/{nombre}")
+    public Response buscarPorNombre(@PathParam("nombre") String nombre){
+        List<Comercio> lp = null;
+        Response.ResponseBuilder rb;
+        try{
+            lp = cb.traerPorNombre(nombre);
+            rb = Response.ok();
+            rb.header("Content-Type", MediaType.APPLICATION_JSON);
+            rb.entity(lp);
+            return rb.build();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        rb = Response.status(Response.Status.NO_CONTENT);
+        rb.header("Content-Type", MediaType.TEXT_HTML);
+        return rb.build();
+    }
+
     @POST
     @Path("/{idC}/tipocomercio/{idT}")
     @Produces({ MediaType.APPLICATION_JSON })
@@ -89,7 +103,40 @@ public class ComercioResource extends AbstracRestResources<Comercio>  {
             tipoComercio = tcb.traerPorIdTipoComercio(idTipoComercio);
 
             comercio.getComercioTipoComercioList().add(new ComercioTipoComercio(idComercio, idTipoComercio));
-            
+
+            tipoComercio.getComercioTipoComercioList().add(new ComercioTipoComercio(idComercio,idTipoComercio));
+
+            cb.Actualizar(comercio);
+            tcb.Actualizar(tipoComercio);
+
+            rb = Response.status(Response.Status.CREATED);
+            rb.header("Content-Type", MediaType.APPLICATION_JSON);
+
+            return rb.build();
+
+        } catch (Exception e) {
+            rb = Response.status(Status.BAD_REQUEST);
+            rb.header("Content-Type", MediaType.APPLICATION_JSON);
+            // rb.header("deny", MediaType.APPLICATION_JSON);
+        }
+        return rb.build();
+    }
+
+    @POST
+    @Path("/{idC}/tipoproducto/{idP}")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response asociarTipoProducto(String json, @PathParam("idC") int idComercio, @PathParam("idP") int idTipoProducto) {
+
+        Comercio comercio;
+        Producto productoComercio;
+        Response.ResponseBuilder rb;
+        ProductoBean tcb = new ProductoBean();
+        try {
+
+            comercio = cb.traerPorIdComercio(idComercio);
+            productoComercio = tcb.traerPorIdProducto(idTipoProducto);
+
+            comercio.getProductoComercioList().add(new ProductoComercio(idTipoProducto,idComercio));
             cb.Actualizar(comercio);
             rb = Response.status(Response.Status.CREATED);
             rb.header("Content-Type", MediaType.APPLICATION_JSON);

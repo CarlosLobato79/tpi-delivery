@@ -9,6 +9,8 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -31,6 +33,21 @@ public class ComercioBean extends AbstractDataAccess<Comercio>  implements Seria
             }
         return  query.getSingleResult();
     }
+
+    public List<Comercio> traerPorNombre(String nombre) throws Exception {
+        List<Comercio> listComercio = new ArrayList<>();
+
+        EntityManager em = this.getEntityManager();
+        TypedQuery<Comercio> query = em.createNamedQuery("Comercio.findByNombre", Comercio.class);
+        query.setParameter("nombre",nombre);
+        listComercio = query.getResultList();
+        if(listComercio.size() == 0){
+            throw new Exception("No se encontro");
+        }
+        return listComercio;
+    }
+
+
 
     
 }
